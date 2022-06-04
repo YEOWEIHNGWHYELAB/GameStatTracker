@@ -50,7 +50,22 @@ INSTALLED_APPS = [
     'users'
 ]
 
+GOOGLE_RECAPTCHA_SECRET = env("GOOGLE_RECAPTCHA_SECRET", default="")
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='you@localhost')
+
+ANYMAIL = {
+    'MAILGUN_API_KEY': env('MAILGUN_API_KEY', default='')
+}
+
 AUTH_USER_MODEL = 'users.GameUser'
+
+DJOSER = {
+    "PASSWORD_RESET_CONFIRM_URL": "auth/password-reset/confirm/{uid}/{token}",
+    "SERIALIZERS": {
+        'password_reset': 'users.serializers.CustomSendEmailResetSerializer'
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
