@@ -15,7 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls.conf import include
+
+
+# Admin Site
+admin.site.index_title = 'Game Stat Tracker'
+admin.site.site_url = 'https://store.steampowered.com/'
+admin.site.site_title = 'Game Statistics'
+admin.site.site_header = 'GAME ON!'
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('gamestat.urls')),
+    path('', include('users.urls')),
 ]
