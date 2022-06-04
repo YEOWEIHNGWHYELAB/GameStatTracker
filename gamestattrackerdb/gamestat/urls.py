@@ -1,8 +1,8 @@
 from rest_framework import routers
-#from .views import CategoryViewSet, TaskViewSet
+from .views import GameStatViewSet, GamesViewSet
 
 router = routers.DefaultRouter()
-#router.register(r'game', CategoryViewSet, 'categories')
-#router.register(r'gamestat', TaskViewSet, 'tasks')
+router.register(r'game', GamesViewSet, 'games')
+router.register(r'gamestat', GameStatViewSet, 'gamestat')
 
 urlpatterns = router.urls
