@@ -18,12 +18,13 @@ class Games(models.Model):
 
     class Meta:
         unique_together = ('name', 'created_by')
+        verbose_name_plural = "Games"
 
 
 # Game Statistical Information
 class GameStat(models.Model):
     class Meta:
-        verbose_name_plural = "GAME STATISTICS"
+        verbose_name_plural = "Game Statistics"
 
     game_type = models.CharField(max_length=100)
     description = models.TextField(max_length=1000, blank=True)
