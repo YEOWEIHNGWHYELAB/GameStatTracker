@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 
 GameUser = get_user_model()
 
+
 # Games Played
 class Games(models.Model):
     class Meta:
@@ -10,8 +11,13 @@ class Games(models.Model):
 
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
-
     created_by = models.ForeignKey(GameUser, related_name="games", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.name) + " : " + str(self.created_by)
+
+    class Meta:
+        unique_together = ('name', 'created_by')
 
 
 # Game Statistical Information

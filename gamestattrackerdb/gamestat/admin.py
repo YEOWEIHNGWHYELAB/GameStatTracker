@@ -11,6 +11,7 @@ class GameStatAdmin(admin.ModelAdmin):
 
     def get_game_name(self, obj):
         return obj.game.name
+
     get_game_name.short_description = 'Game'
     get_game_name.admin_order_field = 'game__name'
 
