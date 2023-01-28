@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
 import Masonry from "react-masonry-css";
 
-import TaskListItem from './GameStatListItem';
+import GameStatListItem from './GameStatListItem';
 import useRequestResource from 'src/hooks/useRequestResource';
 import Filters from "./Filters";
 
@@ -80,10 +80,10 @@ export default function GameStat() {
                 </DialogTitle>
                 <DialogActions>
                     <Button onClick={handleDelete}>
-                        YES
+                        YES, I want it GONE!
                     </Button>
                     <Button onClick={handleDeleteClose}>
-                        NO
+                        NO, I wanna go back!
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -97,23 +97,25 @@ export default function GameStat() {
                 }}
                 color="text.primary"
             >
-                {`Total Tasks: ${resourceList.count || 0}`}
+                {`Total Game Statistics: ${resourceList.count || 0}`}
             </Typography>
 
             <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 3, mt: 3 }}>
-                <Button component={Link} variant="contained" color="primary" to="/tasks/create">
-                    Create Task
+                <Button component={Link} variant="contained" color="primary" to="/gamestat/create">
+                    Create Game Statistics
                 </Button>
             </Box>
+
             <Masonry breakpointCols={breakpoints} className="my-masonry-grid" columnClassName='my-masonry-grid_column'>
-                {resourceList.results.map((task) => {
+                {resourceList.results.map((gamestat) => {
                     return (
-                        <div key={task.id}>
-                            <TaskListItem task={task} handleConfirmDelete={handleConfirmDelete} handleUpdateCompleted={handleUpdateCompleted} />
+                        <div key={gamestat.id}>
+                            <GameStatListItem gamestat={gamestat} handleConfirmDelete={handleConfirmDelete} handleUpdateCompleted={handleUpdateCompleted} />
                         </div>
                     )
                 })}
             </Masonry>
+
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 <Pagination
                     color="primary"

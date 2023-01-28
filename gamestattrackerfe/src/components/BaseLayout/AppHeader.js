@@ -174,7 +174,7 @@ export function AppHeader({ mobileOpen, setMobileOpen }) {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-                    Tasks Manager
+                    GAME STATISTICS TRACKER
                 </Typography>
                 {authLinks}
             </Toolbar>

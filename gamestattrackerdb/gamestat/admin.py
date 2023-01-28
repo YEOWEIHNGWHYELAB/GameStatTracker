@@ -8,8 +8,7 @@ class GamesAdmin(admin.ModelAdmin):
 
 
 class GameStatAdmin(admin.ModelAdmin):
-    list_display = ['game_type', 'get_game_name', 'created_by']
-    # readonly_fields = ('created_by',)
+    list_display = ['get_game_name', 'game_type', 'created_by']
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "game":

@@ -17,8 +17,6 @@ import { lightGreen, cyan, amber, red } from "@mui/material/colors";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import useRequestResource from "src/hooks/useRequestResource";
-
-import ColorBox from "src/components/ColorBox";
 import priorityOptionsData, { priorityOptionsDataList } from "src/data/priorityOptionsData";
 
 const validationSchema = yup.object({
@@ -27,11 +25,11 @@ const validationSchema = yup.object({
     priority: yup.string().required("Priority is required"),
 });
 
-export default function TaskDetails() {
-    const { getResourceList, resourceList: categoryList } = useRequestResource({
-        endpoint: "categories"
+export default function GameStatDetails() {
+    const { getResourceList, resourceList: gamestatList } = useRequestResource({
+        endpoint: "gamestat"
     })
-    const { addResource, updateResource, getResource, resource } = useRequestResource({ endpoint: "tasks", resourceLabel: "Task" })
+    const { addResource, updateResource, getResource, resource } = useRequestResource({ endpoint: "gamestat", resourceLabel: "Game Statistics" })
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -70,14 +68,14 @@ export default function TaskDetails() {
         // If id exist, we update resource 
         if (id) {
             updateResource(id, values, () => {
-                navigate("/tasks")
+                navigate("/gamestat")
             })
             // Need return so it doesn't run the code below it
             return;
         }
 
         addResource(values, () => {
-            navigate("/tasks")
+            navigate("/gamestat")
         })
     };
 
@@ -88,7 +86,7 @@ export default function TaskDetails() {
             padding: (theme) => theme.spacing(3)
         }}>
             <Typography variant="h6" mb={4}>
-                {id ? "Edit Task" : "Create Task"}
+                {id ? "Edit Game Statistics" : "Create Game Statistics"}
             </Typography>
             <Formik
                 onSubmit={handleSubmit}
@@ -147,12 +145,6 @@ export default function TaskDetails() {
                                                                     alignItems: "center",
                                                                 }}
                                                             >
-                                                                <ColorBox
-                                                                    color={
-                                                                        priorityOptionsData[p.value].color ||
-                                                                        "#fff"
-                                                                    }
-                                                                />
                                                                 <Box sx={{ ml: 1 }}>{p.label}</Box>
                                                             </Box>
                                                         </MenuItem>
@@ -182,8 +174,8 @@ export default function TaskDetails() {
                                             id="category"
                                             {...formik.getFieldProps("category")}
                                         >
-                                            {Array.isArray(categoryList.results)
-                                                ? categoryList.results.map((c) => {
+                                            {Array.isArray(gamestatList.results)
+                                                ? gamestatList.results.map((c) => {
                                                     return (
                                                         <MenuItem value={c.id} key={c.id}>
                                                             <Box
@@ -192,7 +184,6 @@ export default function TaskDetails() {
                                                                     alignItems: "center",
                                                                 }}
                                                             >
-                                                                <ColorBox color={`#${c.color}`} />
                                                                 <Box sx={{ ml: 1 }}>{c.name}</Box>
                                                             </Box>
                                                         </MenuItem>
@@ -209,7 +200,7 @@ export default function TaskDetails() {
                                     <Box sx={{ display: "flex", margin: (theme) => theme.spacing(1), marginTop: (theme) => theme.spacing(3) }}>
                                         <Button
                                             component={Link}
-                                            to='/tasks'
+                                            to='/gamestat'
                                             size="medium"
                                             variant="outlined"
                                             sx={{ mr: 2 }}>

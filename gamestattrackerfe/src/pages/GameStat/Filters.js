@@ -13,7 +13,6 @@ import PropTypes from "prop-types";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import useRequestResource from "src/hooks/useRequestResource";
-import ColorBox from "src/components/ColorBox";
 import priorityOptionsData, { priorityOptionsDataList } from "src/data/priorityOptionsData"
 
 const completionFilters = [
@@ -45,7 +44,7 @@ const initialValues = {
 };
 
 export default function Filters({ onSubmit }) {
-    const { getResourceList, resourceList } = useRequestResource({ endpoint: "categories" });
+    const { getResourceList, resourceList } = useRequestResource({ endpoint: "gamestat" });
     const handleSubmit = (values) => {
         onSubmit(values);
     };
@@ -128,9 +127,6 @@ export default function Filters({ onSubmit }) {
                                                         alignItems: "center",
                                                     }}
                                                 >
-                                                    {c.color ? <ColorBox
-                                                        color={c.color}
-                                                    /> : null}
 
                                                     <Box sx={{ ml: c.color ? 1 : 0 }}>{c.label}</Box>
                                                 </Box>
@@ -191,12 +187,6 @@ export default function Filters({ onSubmit }) {
                                                         alignItems: "center",
                                                     }}
                                                 >
-                                                    {priorityOptionsData[p.value] ? (
-                                                        <ColorBox
-                                                            color={priorityOptionsData[p.value].color || ""}
-                                                        />
-                                                    ) : null}
-
                                                     <Box
                                                         sx={{
                                                             ml: priorityOptionsData[p.value] ? 1 : 0,

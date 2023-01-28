@@ -4,7 +4,6 @@ import { ListItemIcon, styled, Checkbox, Card, CardHeader, CardContent, IconButt
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 import { Link } from "react-router-dom";
-import ColorLabel from "./ColorLabel";
 import priorityOptionsData from 'src/data/priorityOptionsData';
 
 const StyledLink = styled(Link)(({ theme }) => ({
@@ -15,7 +14,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
     }
 }));
 
-export default function TaskListItem({ task, handleConfirmDelete, handleUpdateCompleted }) {
+export default function GameStatListItem({ gamestat, handleConfirmDelete, handleUpdateCompleted }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -30,7 +29,6 @@ export default function TaskListItem({ task, handleConfirmDelete, handleUpdateCo
 
     return <Card
         elevation={3}
-        sx={{ mb: 2, borderLeft: (theme) => `${theme.spacing(0.5)} solid ${priorityOptionsData[task.priority].color || "#fff"}`}}
     >
         <CardHeader sx={{
             pt: 1,
@@ -39,19 +37,21 @@ export default function TaskListItem({ task, handleConfirmDelete, handleUpdateCo
             titleTypographyProps={{
                 variant: "subtitle2"
             }}
+
             action={
                 <Box>
                     <IconButton size="small" onClick={handleClick}>
                         <MoreVertIcon
                             fontSize="small"
-                            id={`tasks-card-action-${task.id}`}
-                            aria-controls={`tasks-card-menu-${task.id}`}
-                            aria-expanded={`task-card-menu-true-${task.id}`}
+                            id={`gamestat-card-action-${gamestat.id}`}
+                            aria-controls={`gamestat-card-menu-${gamestat.id}`}
+                            aria-expanded={`gamestat-card-menu-true-${gamestat.id}`}
                         />
                     </IconButton>
+
                     <Menu
-                        id={`tasks-card-action-menu-${task.id}`}
-                        aria-labelledby={`task-card-action-${task.id}`}
+                        id={`gamestat-card-action-menu-${gamestat.id}`}
+                        aria-labelledby={`gamestat-card-action-${gamestat.id}`}
                         anchorEl={anchorEl}
                         open={open}
                         onClose={handleClose}
@@ -65,49 +65,40 @@ export default function TaskListItem({ task, handleConfirmDelete, handleUpdateCo
                         }}
                     >
                         <MenuItem onClick={() => {
-                            handleConfirmDelete(task.id);
+                            handleConfirmDelete(gamestat.id);
                         }}>
                             <ListItemIcon>
                                 <DeleteOutlineIcon fontSize="small" />
                             </ListItemIcon>
                         </MenuItem>
                     </Menu>
+
                 </Box>
             }
+
             title={
                 <Box sx={{ display: "flex", alignItems: "flex-start" }}>
                     <Checkbox
                         sx={{ padding: (theme) => `0 ${theme.spacing(0.5)} 0 0` }}
-                        checked={task.completed || false}
+                        checked={gamestat.completed || false}
                         onClick={() => {
-                            handleUpdateCompleted(task);
+                            handleUpdateCompleted(gamestat);
                         }}
                     />
-                    <StyledLink to={`/tasks/edit/${task.id}`} key={"tasks-edit"}>
-                        {task.title}
+                    <StyledLink to={`/gamestat/edit/${gamestat.id}`} key={"gamestat-edit"}>
+                        {gamestat.title}
                     </StyledLink>
                 </Box>
             }
         />
-        <CardContent sx={{ pt: 0.25, pb: 0.25 }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-                <ColorLabel color={`#${task.category_color}`}>
-                    {task.category_name}
-                </ColorLabel>
-            </Box>
-        </CardContent>
     </Card>;
 }
 
-TaskListItem.propTypes = {
-    task: PropTypes.shape({
-        completed: PropTypes.bool,
+GameStatListItem.propTypes = {
+    gamestat: PropTypes.shape({
         title: PropTypes.string,
-        category_name: PropTypes.string,
-        category_color: PropTypes.string,
         id: PropTypes.number,
         description: PropTypes.string,
-        priority: PropTypes.number,
     }),
     handleConfirmDelete: PropTypes.func,
     handleUpdateCompleted: PropTypes.func

@@ -5,7 +5,6 @@ import * as yup from 'yup';
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import useRequestResource from 'src/hooks/useRequestResource';
-import ColorPicker from "src/components/ColorPicker";
 import { FormatLineSpacing } from '@mui/icons-material';
 
 const validationSchema = yup.object({

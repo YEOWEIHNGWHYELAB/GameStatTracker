@@ -5,7 +5,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import useRequestResource from 'src/hooks/useRequestResource';
-import ColorBox from "src/components/ColorBox";
 
 export default function Categories() {
     const { getResourceList, resourceList, deleteResource } = useRequestResource({ endpoint: "game", resourceLabel: "Games" });
