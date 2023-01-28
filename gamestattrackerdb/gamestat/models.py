@@ -14,7 +14,7 @@ class Games(models.Model):
     created_by = models.ForeignKey(GameUser, related_name="games", on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.name) + " : " + str(self.created_by)
+        return str(self.name)
 
     class Meta:
         unique_together = ('name', 'created_by')
