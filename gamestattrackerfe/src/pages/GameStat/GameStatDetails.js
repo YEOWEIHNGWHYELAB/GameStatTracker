@@ -33,7 +33,6 @@ export default function GameStatDetails() {
     const navigate = useNavigate();
     const { id } = useParams();
 
-
     // Set initial state of the form
     const [initialValues, setInitialValues] = useState({
         title: "",
@@ -108,6 +107,7 @@ export default function GameStatDetails() {
                                         helperText={formik.touched.title && formik.errors.title}
                                     />
                                 </Grid>
+
                                 <Grid item xs={12}>
                                     <TextField
                                         fullWidth
@@ -118,6 +118,7 @@ export default function GameStatDetails() {
                                         {...formik.getFieldProps("description")}
                                     />
                                 </Grid>
+
                                 <Grid item xs={12}>
                                     <FormControl
                                         sx={{
@@ -157,6 +158,7 @@ export default function GameStatDetails() {
                                         </FormHelperText>
                                     </FormControl>
                                 </Grid>
+
                                 <Grid item xs={12}>
                                     <FormControl
                                         sx={{
@@ -196,6 +198,7 @@ export default function GameStatDetails() {
                                         </FormHelperText>
                                     </FormControl>
                                 </Grid>
+                                
                                 <Grid item>
                                     <Box sx={{ display: "flex", margin: (theme) => theme.spacing(1), marginTop: (theme) => theme.spacing(3) }}>
                                         <Button

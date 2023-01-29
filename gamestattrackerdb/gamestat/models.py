@@ -31,6 +31,7 @@ class GameStat(models.Model):
     start_time = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    win = models.BooleanField(null=True)
 
     game = models.ForeignKey(Games, related_name="gamestat", on_delete=models.CASCADE)
     created_by = models.ForeignKey(GameUser, related_name="gamestat", on_delete=models.CASCADE)

@@ -21,9 +21,9 @@ export default function GameStat() {
     const [idToDelete, setIdToDelete] = useState(null);
 
     // Equals to a functions that accepts a task
-    const handleUpdateCompleted = (task) => {
-        updateResource(task.id, {
-            completed: !task.completed
+    const handleUpdateWin = (gamestat) => {
+        updateResource(gamestat.id, {
+            win: !gamestat.win
         })
     }
 
@@ -110,7 +110,7 @@ export default function GameStat() {
                 {resourceList.results.map((gamestat) => {
                     return (
                         <div key={gamestat.id}>
-                            <GameStatListItem gamestat={gamestat} handleConfirmDelete={handleConfirmDelete} handleUpdateCompleted={handleUpdateCompleted} />
+                            <GameStatListItem gamestat={gamestat} handleConfirmDelete={handleConfirmDelete} handleUpdateWin={handleUpdateWin} />
                         </div>
                     )
                 })}
