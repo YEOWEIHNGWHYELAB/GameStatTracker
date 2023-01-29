@@ -13,32 +13,32 @@ import {
     Typography,
     Button
 } from "@mui/material";
-import { lightGreen, cyan, amber, red } from "@mui/material/colors";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import useRequestResource from "src/hooks/useRequestResource";
-import priorityOptionsData, { priorityOptionsDataList } from "src/data/priorityOptionsData";
 
 const validationSchema = yup.object({
+    game: yup.string().required("Game is required"),
     title: yup.string().required("Title is required").max(100, "Max length is 100"),
-    category: yup.number().required("Category is required"),
-    priority: yup.string().required("Priority is required"),
 });
 
 export default function GameStatDetails() {
-    const { getResourceList, resourceList: gamestatList } = useRequestResource({
-        endpoint: "gamestat"
+    const { getResourceList, resourceList: gameList } = useRequestResource({
+        endpoint: "game"
     })
-    const { addResource, updateResource, getResource, resource } = useRequestResource({ endpoint: "gamestat", resourceLabel: "Game Statistics" })
+    const { addResource, updateResource, getResource, resource } = useRequestResource({ 
+        endpoint: "gamestat", 
+        resourceLabel: "Game Statistics" 
+    })
+
     const navigate = useNavigate();
     const { id } = useParams();
 
     // Set initial state of the form
     const [initialValues, setInitialValues] = useState({
-        title: "",
+        game: "",
+        gametype: "",
         description: "",
-        category: "",
-        priority: 2,
     });
 
     useEffect(() => {
@@ -54,22 +54,19 @@ export default function GameStatDetails() {
     useEffect(() => {
         if (resource) {
             setInitialValues({
-                title: resource.title,
+                game: resource.game_name,
+                gametype: resource.game_type || "",
                 description: resource.description || "",
-                category: resource.category,
-                priority: resource.priority
             })
         }
     }, [resource])
 
-    // After submission, route user back to Task List Page
     const handleSubmit = (values) => {
-        // If id exist, we update resource 
         if (id) {
             updateResource(id, values, () => {
                 navigate("/gamestat")
             })
-            // Need return so it doesn't run the code below it
+
             return;
         }
 
@@ -98,13 +95,56 @@ export default function GameStatDetails() {
                         <form onSubmit={formik.handleSubmit}>
                             <Grid container spacing={3}>
                                 <Grid item xs={12}>
+                                    <FormControl
+                                        sx={{
+                                            width: "100%",
+                                        }}
+                                        error={
+                                            formik.touched.game && Boolean(formik.errors.game)
+                                        }
+                                    >
+                                    <InputLabel id="game-label">Game</InputLabel>
+                                        <Select
+                                            fullWidth
+                                            labelId="game-label"
+                                            label="Game"
+                                            id="game"
+                                            {...formik.getFieldProps("game")}
+                                        >
+                                            {Array.isArray(gameList.results)
+                                                ? gameList.results.map((c) => {
+                                                    return (
+                                                        <MenuItem value={c.id} key={c.id}>
+                                                            <Box
+                                                                sx={{
+                                                                    display: "flex",
+                                                                    alignItems: "center",
+                                                                }}
+                                                            >
+                                                                <Box sx={{ ml: 1 }}>
+                                                                    {c.name}
+                                                                </Box>
+                                                            </Box>
+                                                        </MenuItem>
+                                                    );
+                                                })
+                                                : null}
+                                        </Select>
+
+                                        <FormHelperText>
+                                            {formik.touched.game && formik.errors.game}
+                                        </FormHelperText>
+                                    </FormControl>
+                                </Grid>
+
+                                <Grid item xs={12}>
                                     <TextField
                                         fullWidth
-                                        id="title"
-                                        label="Title"
-                                        {...formik.getFieldProps("title")}
-                                        error={formik.touched.title && Boolean(formik.errors.title)}
-                                        helperText={formik.touched.title && formik.errors.title}
+                                        id="gametype"
+                                        label="Game Type"
+                                        {...formik.getFieldProps("gametype")}
+                                        error={formik.touched.gametype && Boolean(formik.errors.gametype)}
+                                        helperText={formik.touched.gametype && formik.errors.gametype}
                                     />
                                 </Grid>
 
@@ -119,86 +159,6 @@ export default function GameStatDetails() {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12}>
-                                    <FormControl
-                                        sx={{
-                                            width: "100%",
-                                        }}
-                                        error={
-                                            formik.touched.priority && Boolean(formik.errors.priority)
-                                        }
-                                    >
-                                        <InputLabel id="priority-label">Priority</InputLabel>
-                                        <Select
-                                            fullWidth
-                                            labelId="priority-label"
-                                            label="Priority"
-                                            id="priority"
-                                            {...formik.getFieldProps("priority")}
-                                        >
-                                            {Array.isArray(priorityOptionsDataList)
-                                                ? priorityOptionsDataList.map((p) => {
-                                                    return (
-                                                        <MenuItem value={p.value} key={p.value}>
-                                                            <Box
-                                                                sx={{
-                                                                    display: "flex",
-                                                                    alignItems: "center",
-                                                                }}
-                                                            >
-                                                                <Box sx={{ ml: 1 }}>{p.label}</Box>
-                                                            </Box>
-                                                        </MenuItem>
-                                                    );
-                                                })
-                                                : null}
-                                        </Select>
-                                        <FormHelperText>
-                                            {formik.touched.priority && formik.errors.priority}
-                                        </FormHelperText>
-                                    </FormControl>
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <FormControl
-                                        sx={{
-                                            width: "100%",
-                                        }}
-                                        error={
-                                            formik.touched.category && Boolean(formik.errors.category)
-                                        }
-                                    >
-                                        <InputLabel id="category-label">Category</InputLabel>
-                                        <Select
-                                            fullWidth
-                                            labelId="category-label"
-                                            label="Category"
-                                            id="category"
-                                            {...formik.getFieldProps("category")}
-                                        >
-                                            {Array.isArray(gamestatList.results)
-                                                ? gamestatList.results.map((c) => {
-                                                    return (
-                                                        <MenuItem value={c.id} key={c.id}>
-                                                            <Box
-                                                                sx={{
-                                                                    display: "flex",
-                                                                    alignItems: "center",
-                                                                }}
-                                                            >
-                                                                <Box sx={{ ml: 1 }}>{c.name}</Box>
-                                                            </Box>
-                                                        </MenuItem>
-                                                    );
-                                                })
-                                                : null}
-                                        </Select>
-                                        <FormHelperText>
-                                            {formik.touched.category && formik.errors.category}
-                                        </FormHelperText>
-                                    </FormControl>
-                                </Grid>
-                                
                                 <Grid item>
                                     <Box sx={{ display: "flex", margin: (theme) => theme.spacing(1), marginTop: (theme) => theme.spacing(3) }}>
                                         <Button

@@ -11,7 +11,7 @@ class Games(models.Model):
 
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(GameUser, related_name="games", on_delete=models.CASCADE)
+    created_by = models.ForeignKey(GameUser, related_name="games", on_delete=models.PROTECT)
 
     def __str__(self):
         return str(self.name)
@@ -33,5 +33,5 @@ class GameStat(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     win = models.BooleanField(null=True)
 
-    game = models.ForeignKey(Games, related_name="gamestat", on_delete=models.CASCADE)
-    created_by = models.ForeignKey(GameUser, related_name="gamestat", on_delete=models.CASCADE)
+    game = models.ForeignKey(Games, related_name="gamestat", on_delete=models.PROTECT)
+    created_by = models.ForeignKey(GameUser, related_name="gamestat", on_delete=models.PROTECT)
