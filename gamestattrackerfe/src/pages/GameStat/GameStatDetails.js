@@ -16,6 +16,8 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import useRequestResource from "src/hooks/useRequestResource";
+import DateTimePicker from 'react-datetime-picker';
+import { DatePicker } from "@mui/lab";
 
 const validationSchema = yup.object({
     game: yup.string().required("Game is required"),
@@ -39,28 +41,36 @@ export default function GameStatDetails() {
     const [initialValues, setInitialValues] = useState({
         game: "",
         gametype: "",
+        start_time: useState(Date.now()),
+        end_time: useState(Date.now()),
         description: "",
     });
 
     useEffect(() => {
         getResourceList();
-    }, [getResourceList])
+    }, [getResourceList]);
 
     useEffect(() => {
         if (id) {
             getResource(id);
         }
-    }, [id, getResource])
+    }, [id, getResource]);
 
     useEffect(() => {
         if (resource) {
             setInitialValues({
                 game: resource.game,
                 gametype: resource.game_type || "",
+                start_time: resource.start_time,
+                end_time: resource.end_time,
                 description: resource.description || "",
             })
         }
-    }, [resource])
+    }, [resource]);
+
+    const handleDateChange = (currTimeDate) => {
+        resource.end_time = currTimeDate;
+    };
 
     const handleSubmit = (values) => {
         if (id) {
@@ -146,6 +156,30 @@ export default function GameStatDetails() {
                                         {...formik.getFieldProps("gametype")}
                                         error={formik.touched.gametype && Boolean(formik.errors.gametype)}
                                         helperText={formik.touched.gametype && formik.errors.gametype}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <label>
+                                        Start Date Time: 
+                                    </label>
+
+                                    <DateTimePicker 
+                                        fullWidth
+                                        onChange={handleDateChange}
+                                        {...formik.getFieldProps("start_time")}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <label>
+                                        End Date Time: 
+                                    </label>
+
+                                    <DateTimePicker 
+                                        id="end_time"
+                                        onChange={handleDateChange}
+                                        value={getFieldProps("end_time")}
                                     />
                                 </Grid>
 
