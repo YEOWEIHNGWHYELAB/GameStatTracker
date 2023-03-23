@@ -19,6 +19,7 @@ import useRequestResource from "src/hooks/useRequestResource";
 
 const validationSchema = yup.object({
     game: yup.string().required("Game is required"),
+    gametype: yup.string().required("Game type is required"),
     title: yup.string().required("Title is required").max(100, "Max length is 100"),
 });
 
@@ -54,7 +55,7 @@ export default function GameStatDetails() {
     useEffect(() => {
         if (resource) {
             setInitialValues({
-                game: resource.game_name,
+                game: resource.game,
                 gametype: resource.game_type || "",
                 description: resource.description || "",
             })

@@ -5,6 +5,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 import { Link } from "react-router-dom";
 import { format } from 'date-fns';
+import Moment from 'moment';
 
 const StyledLink = styled(Link)(({ theme }) => ({
     textDecoration: "none",
@@ -90,17 +91,13 @@ export default function GameStatListItem({ gamestat, handleConfirmDelete, handle
                 </Box>
             }
         />
-        
-        <h5>
-            Start Time: {gamestat.start_time}
-            <br/>
-            End Time: {gamestat.end_time}
-            <br/>
-            <br/>
-            Gameplay Description:
-            <br/>
-            {gamestat.description}
-        </h5>
+
+        <div>
+            <p>Start Time: {Moment(gamestat.start_time).format('MMMM Do YYYY, h:mm a')}</p>
+            <p>End Time: {Moment(gamestat.end_time).format('MMMM Do YYYY, h:mm a')}</p>
+            <h4>Description: </h4>
+            <h5>{gamestat.description}</h5>
+        </div>
     </Card>;
 }
 
