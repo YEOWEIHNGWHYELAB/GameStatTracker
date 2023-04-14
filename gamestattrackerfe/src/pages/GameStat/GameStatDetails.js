@@ -17,7 +17,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import useRequestResource from "src/hooks/useRequestResource";
 import DateTimePicker from 'react-datetime-picker';
-import { DatePicker } from "@mui/lab";
 
 const validationSchema = yup.object({
     game: yup.string().required("Game is required"),
@@ -79,7 +78,9 @@ export default function GameStatDetails() {
         }
     }, [resource]);
 
-    const handleSubmit = (values) => {
+    const handleSubmit = values => {
+        console.log(values);
+        
         if (id) {
             updateResource(id, values, () => {
                 navigate("/gamestat")
@@ -100,17 +101,17 @@ export default function GameStatDetails() {
             padding: (theme) => theme.spacing(3)
         }}>
             <Typography variant="h6" mb={4}>
-                {id ? "Edit Game Statistics" : "Create Game Statistics"}
+                {id ? "Edit Game Statistics" : "Create New Game Statistics"}
             </Typography>
-            <Formik
-                onSubmit={handleSubmit}
+
+            <Formik onSubmit={handleSubmit}
                 initialValues={initialValues}
                 enableReinitialize
                 validationSchema={validationSchema}
             >
                 {(formik) => {
                     return (
-                        <form onSubmit={formik.handleSubmit}>
+                        <form onSubmit = { formik.handleSubmit }>
                             <Grid container spacing={3}>
                                 <Grid item xs={12}>
                                     <FormControl
@@ -210,7 +211,8 @@ export default function GameStatDetails() {
                                             Back
                                         </Button>
 
-                                        <Button type="submit"
+                                        <Button 
+                                            type="submit"
                                             size="medium"
                                             variant="contained"
                                             color="primary"
