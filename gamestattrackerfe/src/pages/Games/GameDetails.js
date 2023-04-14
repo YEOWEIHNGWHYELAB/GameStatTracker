@@ -49,60 +49,60 @@ export default function CategoryDetails() {
         })
     }
 
-  return (
-    <Paper sx = {{
-        borderRadius: "2px",
-        bpxShadow: (theme) => theme.shadows[4],
-        padding: (theme) => theme.spacing(2, 4, 3)
-    }}>
-        <Typography variant = "h6" mh={4}>
-            {id ? "Edit Game" : "Add New Game"}
-        </Typography>
+    return (
+        <Paper sx = {{
+            borderRadius: "2px",
+            bpxShadow: (theme) => theme.shadows[4],
+            padding: (theme) => theme.spacing(2, 4, 3)
+        }}>
+            <Typography variant = "h6" mh={4}>
+                {id ? "Edit Game" : "Add New Game"}
+            </Typography>
 
-        <Formik onSubmit = {handleSubmit} 
-            initialValues = {initialValues}
-            enableReinitialize
-            validationSchema = {validationSchema}
-        >
-            {
-                (formik) => {
-                    return (
-                        <form onSubmit = { formik.handleSubmit }>
-                            <Grid container spacing={3}>
-                                <Grid item xs={12}> 
-                                    <TextField 
-                                        fullWidth 
-                                        id = "name" 
-                                        label = "Name"
-                                        {...formik.getFieldProps('name')} 
-                                        error = {formik.touched.name && Boolean(formik.errors.name)}
-                                        helperText = {formik.touched.name && formik.errors.name}
-                                        />
-                                </Grid>
+            <Formik onSubmit = {handleSubmit} 
+                initialValues = {initialValues}
+                enableReinitialize
+                validationSchema = {validationSchema}
+            >
+                {
+                    (formik) => {
+                        return (
+                            <form onSubmit = { formik.handleSubmit }>
+                                <Grid container spacing={3}>
+                                    <Grid item xs={12}> 
+                                        <TextField 
+                                            fullWidth 
+                                            id = "name" 
+                                            label = "Name"
+                                            {...formik.getFieldProps('name')} 
+                                            error = {formik.touched.name && Boolean(formik.errors.name)}
+                                            helperText = {formik.touched.name && formik.errors.name}
+                                            />
+                                    </Grid>
 
-                                <Grid item>
-                                    <Box sx={{display: "flex", margin: (theme) => theme.spacing(1), marginTop: (theme) => theme.spacing(3)}}/>
-                                        <Button component = {Link} 
-                                            to = "/game"
-                                            size = "medium"
-                                            variant = "outlined"
-                                            sx = {{ mr: 2 }}>
-                                                Back
-                                        </Button>
-                                        <Button 
-                                            type = "submit"
-                                            size = "medium"
-                                            variant = "contained"
-                                            color = "primary">
-                                                Submit
-                                        </Button>
+                                    <Grid item>
+                                        <Box sx={{display: "flex", margin: (theme) => theme.spacing(1), marginTop: (theme) => theme.spacing(3)}}/>
+                                            <Button component = {Link} 
+                                                to = "/game"
+                                                size = "medium"
+                                                variant = "outlined"
+                                                sx = {{ mr: 2 }}>
+                                                    Back
+                                            </Button>
+                                            <Button 
+                                                type = "submit"
+                                                size = "medium"
+                                                variant = "contained"
+                                                color = "primary">
+                                                    Submit
+                                            </Button>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </form>
-                    )
+                            </form>
+                        )
+                    }
                 }
-            }
-        </Formik>
-    </Paper>
-  )
+            </Formik>
+        </Paper>
+    )
 }

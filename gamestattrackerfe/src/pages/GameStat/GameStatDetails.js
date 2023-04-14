@@ -21,7 +21,7 @@ import DateTimePicker from 'react-datetime-picker';
 const validationSchema = yup.object({
     game: yup.string().required("Game is required"),
     gametype: yup.string().required("Game type is required"),
-    title: yup.string().required("Title is required").max(100, "Max length is 100"),
+    description: yup.string().required("Title is required").max(100, "Max length is 100"),
 });
 
 export default function GameStatDetails() {
@@ -101,7 +101,7 @@ export default function GameStatDetails() {
             padding: (theme) => theme.spacing(3)
         }}>
             <Typography variant="h6" mb={4}>
-                {id ? "Edit Game Statistics" : "Create New Game Statistics"}
+                {id ? "Edit Current Game Statistics" : "Create New Game Statistics"}
             </Typography>
 
             <Formik onSubmit={handleSubmit}
@@ -111,7 +111,7 @@ export default function GameStatDetails() {
             >
                 {(formik) => {
                     return (
-                        <form onSubmit = { formik.handleSubmit }>
+                        <form onSubmit={formik.handleSubmit}>
                             <Grid container spacing={3}>
                                 <Grid item xs={12}>
                                     <FormControl
@@ -122,7 +122,7 @@ export default function GameStatDetails() {
                                             formik.touched.game && Boolean(formik.errors.game)
                                         }
                                     >
-                                    <InputLabel id="game-label">Game</InputLabel>
+                                        <InputLabel id="game-label">Game</InputLabel>
                                         <Select
                                             fullWidth
                                             labelId="game-label"
