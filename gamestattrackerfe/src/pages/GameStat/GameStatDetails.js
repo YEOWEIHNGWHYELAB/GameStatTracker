@@ -41,10 +41,11 @@ export default function GameStatDetails() {
     const [initialValues, setInitialValues] = useState({
         game: "",
         gametype: "",
-        start_time: useState(Date.now()),
-        end_time: useState(Date.now()),
         description: "",
     });
+
+    const [start_time, starttime_onChange] = useState(null);
+    const [end_time, endtime_onChange] = useState(null);
 
     useEffect(() => {
         getResourceList();
@@ -61,16 +62,22 @@ export default function GameStatDetails() {
             setInitialValues({
                 game: resource.game,
                 gametype: resource.game_type || "",
-                start_time: resource.start_time,
-                end_time: resource.end_time,
                 description: resource.description || "",
-            })
+            });
+            
+            if (resource.start_time) {
+                starttime_onChange(new Date(resource.start_time));
+            } else {
+                starttime_onChange(new Date());
+            }
+
+            if (resource.end_time) {
+                endtime_onChange(new Date(resource.end_time));
+            } else {
+                endtime_onChange(new Date());
+            }
         }
     }, [resource]);
-
-    const handleDateChange = (currTimeDate) => {
-        resource.end_time = currTimeDate;
-    };
 
     const handleSubmit = (values) => {
         if (id) {
@@ -165,9 +172,8 @@ export default function GameStatDetails() {
                                     </label>
 
                                     <DateTimePicker 
-                                        fullWidth
-                                        onChange={handleDateChange}
-                                        {...formik.getFieldProps("start_time")}
+                                        onChange={starttime_onChange}
+                                        value={start_time}
                                     />
                                 </Grid>
 
@@ -177,9 +183,8 @@ export default function GameStatDetails() {
                                     </label>
 
                                     <DateTimePicker 
-                                        id="end_time"
-                                        onChange={handleDateChange}
-                                        value={getFieldProps("end_time")}
+                                        onChange={endtime_onChange}
+                                        value={end_time}
                                     />
                                 </Grid>
 
