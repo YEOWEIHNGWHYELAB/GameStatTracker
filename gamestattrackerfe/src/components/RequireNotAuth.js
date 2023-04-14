@@ -13,7 +13,7 @@ export default function RequireAuth() {
 
     // Return based on the routing route if isAutenticated
     if (isAuthenticated === true) {
-        return <Navigate to="/" />
+        return <Navigate to="/game" />
     }
 
     return (

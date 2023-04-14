@@ -16,7 +16,6 @@ export default function RequireAuth() {
         return <Outlet />
     }
 
-
     return (
         <Navigate to="/auth/signin" />
     )
