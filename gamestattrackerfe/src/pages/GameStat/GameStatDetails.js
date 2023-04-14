@@ -20,7 +20,7 @@ import DateTimePicker from 'react-datetime-picker';
 
 const validationSchema = yup.object({
     game: yup.string().required("Game is required"),
-    gametype: yup.string().required("Game type is required"),
+    game_type: yup.string().required("Game type is required"),
     description: yup.string().required("Title is required").max(100, "Max length is 100"),
 });
 
@@ -39,7 +39,7 @@ export default function GameStatDetails() {
     // Set initial state of the form
     const [initialValues, setInitialValues] = useState({
         game: "",
-        gametype: "",
+        game_type: "",
         description: "",
     });
 
@@ -60,7 +60,7 @@ export default function GameStatDetails() {
         if (resource) {
             setInitialValues({
                 game: resource.game,
-                gametype: resource.game_type || "",
+                game_type: resource.game_type || "",
                 description: resource.description || "",
             });
             
@@ -79,8 +79,9 @@ export default function GameStatDetails() {
     }, [resource]);
 
     const handleSubmit = values => {
-        console.log(values);
-        
+        values["start_time"] = start_time;
+        values["end_time"] = end_time;
+
         if (id) {
             updateResource(id, values, () => {
                 navigate("/gamestat")
@@ -159,11 +160,11 @@ export default function GameStatDetails() {
                                 <Grid item xs={12}>
                                     <TextField
                                         fullWidth
-                                        id="gametype"
+                                        id="game_type"
                                         label="Game Type"
-                                        {...formik.getFieldProps("gametype")}
-                                        error={formik.touched.gametype && Boolean(formik.errors.gametype)}
-                                        helperText={formik.touched.gametype && formik.errors.gametype}
+                                        {...formik.getFieldProps("game_type")}
+                                        error={formik.touched.game_type && Boolean(formik.errors.game_type)}
+                                        helperText={formik.touched.game_type && formik.errors.game_type}
                                     />
                                 </Grid>
 
