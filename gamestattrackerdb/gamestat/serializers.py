@@ -16,3 +16,19 @@ class GameStatSerializer(serializers.ModelSerializer):
         model = GameStat
         fields = '__all__'
         read_only_fields = ['created_by']
+
+
+class DashboardGameWinLoseSerializer(serializers.ModelSerializer):
+    count = serializers.IntegerField()
+
+    class Meta:
+        model = GameStat
+        fields = ('win', 'count')
+
+
+class DashboardTaskByCategorySerializer(serializers.ModelSerializer):
+    count = serializers.IntegerField()
+
+    class Meta:
+        model = GameStat
+        fields = ('id', 'name', 'color', 'count')

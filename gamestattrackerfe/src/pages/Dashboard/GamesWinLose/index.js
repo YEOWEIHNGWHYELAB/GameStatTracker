@@ -3,37 +3,41 @@ import { useSnackbar } from 'notistack';
 import axios from 'axios';
 
 import { Grid, Box } from "@mui/material";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import CheckIcon from "@mui/icons-material/Check";
-import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
+
+import GamesIcon from '@mui/icons-material/Games';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import CloseIcon from '@mui/icons-material/Close';
 
 import formatHttpApiError from 'src/helpers/formatHttpApiError';
 import getCommonOptions from 'src/helpers/axios/getCommonOptions';
 import StatCard from "./StatCard";
 
-export default function TasksCompletion() {
+export default function GamesWinLose() {
     const [isLoading, setIsLoading] = useState(false);
-    const [completionStats, setCompletionStats] = useState({
-        completed: null,
-        pending: null
+
+    const [gameswinlose, setCompletionStats] = useState({
+        win: null,
+        lose: null
     });
+
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         setIsLoading(true);
-        axios.get('/api/dashboard/tasks-completion/', getCommonOptions())
+        
+        axios.get('/gamewinlose/', getCommonOptions())
             .then((res) => {
                 const { data } = res;
-                // Check if data exist
+                
                 if (data) {
                     const stats = {};
                     data.forEach(d => {
-                        if (d.completed === true) {
-                            stats.completed = d.count;
+                        if (d.win === true) {
+                            stats.win = d.count;
                             return;
                         }
-                        if (d.completed === false) {
-                            stats.pending = d.count
+                        if (d.win === false) {
+                            stats.lose = d.count
                         }
                     })
                     setCompletionStats(stats);
@@ -46,7 +50,7 @@ export default function TasksCompletion() {
             })
     }, [enqueueSnackbar, setIsLoading])
 
-    const totalTasksCount = (completionStats.pending || 0) + (completionStats.completed || 0);
+    const totalGamesPlayed = (gameswinlose.win || 0) + (gameswinlose.lose || 0);
 
     return (
         <Box sx={{
@@ -55,22 +59,24 @@ export default function TasksCompletion() {
         }}>
             <Grid container spacing={3}>
                 <StatCard
-                    title="Total Tasks"
-                    value={totalTasksCount}
+                    title="Total Games Played"
+                    value={totalGamesPlayed}
                     loading={isLoading}
-                    icon={<AssignmentIcon fontSize="small" />}
+                    icon={<GamesIcon fontSize="small" />}
                 />
+
                 <StatCard
-                    title="Tasks Due"
-                    value={completionStats.pending || 0}
+                    title="Total Wins"
+                    value={gameswinlose.win || 0}
                     loading={isLoading}
-                    icon={<AssignmentLateIcon fontSize="small" />}
+                    icon={<EmojiEventsIcon fontSize="small" />}
                 />
+
                 <StatCard
-                    title="Tasks Completed"
-                    value={completionStats.completed || 0}
+                    title="Total Lose"
+                    value={gameswinlose.lose || 0}
                     loading={isLoading}
-                    icon={<CheckIcon fontSize="small" />}
+                    icon={<CloseIcon fontSize="small" />}
                 />
             </Grid>
         </Box>

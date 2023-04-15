@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Box } from "@mui/material";
 import { SnackbarProvider } from "notistack";
 
+import Dashboard from "./pages/Dashboard";
 import Games from "./pages/Games";
 import GamesDetails from "./pages/Games/GameDetails";
 import SignUp from "./pages/Auth/SignUp"
@@ -32,6 +33,7 @@ export default function App() {
             <Routes>
               <Route element={<RequireAuth />}>
                 <Route element={<BaseLayout />}>
+                  <Route path="/" element={<Dashboard/>}/>
                   <Route path="/game" element={<Games />} />
                   <Route path="/game/create" element={<GamesDetails />} />
                   <Route path={`/game/edit/:id`} element={<GamesDetails />} />

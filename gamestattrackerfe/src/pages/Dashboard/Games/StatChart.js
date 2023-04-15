@@ -18,7 +18,6 @@ import {
 } from "@mui/material";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import ColorBox from "src/components/ColorBox";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -96,7 +95,6 @@ export function CardContentDistributionChart({
                                             <TableRow key={row.label}>
                                                 <TableCell component="th" scope="row">
                                                     <Box sx={{ display: "flex", alignItems: "center" }}>
-                                                        <ColorBox color={row.color} />
                                                         <Box sx={{ ml: 1 }}>{row.label}</Box>
                                                     </Box>
                                                 </TableCell>
