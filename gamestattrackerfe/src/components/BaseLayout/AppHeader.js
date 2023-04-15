@@ -108,6 +108,7 @@ export function AppHeader({ mobileOpen, setMobileOpen }) {
             <IconButton sx={{ ml: 1 }} onClick={themeMode.toggleThemeMode}>
                 {theme.palette.mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
+
             <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -118,6 +119,7 @@ export function AppHeader({ mobileOpen, setMobileOpen }) {
             >
                 <AccountCircle />
             </IconButton>
+
             <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -136,12 +138,14 @@ export function AppHeader({ mobileOpen, setMobileOpen }) {
                 <MenuItem onClick={handleOpenModal}>
                     Profile
                 </MenuItem>
+
                 <MenuItem disabled={logoutPending} onClick={handleLogout}>
                     <Box sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center"
-                    }}>
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center"
+                        }}>
+                            
                         {logoutPending === true ? <CircularProgress size={20} sx = {{
                             mr: 2
                         }} /> : null}

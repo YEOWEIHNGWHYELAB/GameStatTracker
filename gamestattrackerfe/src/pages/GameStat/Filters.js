@@ -13,39 +13,33 @@ import PropTypes from "prop-types";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import useRequestResource from "src/hooks/useRequestResource";
-import priorityOptionsData, { priorityOptionsDataList } from "src/data/priorityOptionsData"
 
-const completionFilters = [
+const winorloseFilters = [
     {
         label: "All",
-        value: "all",
+        value: "all"
     },
     {
-        label: "Pending",
-        value: "False",
+        label: "Lose",
+        value: false
     },
     {
-        label: "Completed",
-        value: "True",
+        label: "Win",
+        value: true
     },
 ];
-const priorityOptionsDataForFilter = [
-    {
-        value: "all",
-        label: "All"
-    }
-].concat(priorityOptionsDataList)
 
 const initialValues = {
-    completed: "all",
-    priority: "all",
-    category: "all",
+    win: "all",
+    id: "all",
     search: "",
 };
 
 export default function Filters({ onSubmit }) {
-    const { getResourceList, resourceList } = useRequestResource({ endpoint: "gamestat" });
+    const { getResourceList, resourceList } = useRequestResource({ endpoint: "game" });
+
     const handleSubmit = (values) => {
+        console.log(values);
         onSubmit(values);
     };
 
@@ -53,15 +47,14 @@ export default function Filters({ onSubmit }) {
         getResourceList();
     }, [getResourceList]);
 
-    const categoryList = useMemo(() => {
+    const gamesList = useMemo(() => {
         return [{
             value: "all",
             label: "All"
         }].concat(resourceList.results.map(r => {
             return {
                 value: r.id,
-                label: r.name,
-                color: `#${r.color}`
+                label: r.name
             }
         }))
     }, [resourceList.results])
@@ -110,15 +103,15 @@ export default function Filters({ onSubmit }) {
                                 }}
                                 variant="outlined"
                             >
-                                <InputLabel id="category-label">Category</InputLabel>
+                                <InputLabel id="games-label">Games</InputLabel>
                                 <Select
-                                    labelId="category-label"
-                                    label="Category"
-                                    id="filter-category"
+                                    labelId="games-label"
+                                    label="Games"
+                                    id="filter-games"
                                     size="small"
-                                    {...formik.getFieldProps("category")}
+                                    {...formik.getFieldProps("id")}
                                 >
-                                    {categoryList.map((c) => {
+                                    {gamesList.map((c) => {
                                         return (
                                             <MenuItem value={c.value} key={c.value}>
                                                 <Box
@@ -144,57 +137,18 @@ export default function Filters({ onSubmit }) {
                                 }}
                                 variant="outlined"
                             >
-                                <InputLabel id="completion-label">Status</InputLabel>
+                                <InputLabel id="winorlose-label">Win OR Lose</InputLabel>
                                 <Select
-                                    labelId="completion-label"
-                                    label="Status"
-                                    id="filter-completion"
+                                    labelId="winorlose-label"
+                                    label="WinOrLose"
+                                    id="filter-winorlose"
                                     size="small"
-                                    {...formik.getFieldProps("completed")}
+                                    {...formik.getFieldProps("win")}
                                 >
-                                    {completionFilters.map((c) => {
+                                    {winorloseFilters.map((c) => {
                                         return (
                                             <MenuItem value={c.value} key={c.value}>
                                                 <div style={{ display: "flex" }}>{c.label}</div>
-                                            </MenuItem>
-                                        );
-                                    })}
-                                </Select>
-                            </FormControl>
-
-                            <FormControl
-                                sx={{
-                                    width: isBelowMedium ? "100%" : 160,
-                                    marginRight: (theme) => theme.spacing(1),
-                                    marginBottom: (theme) => theme.spacing(2),
-                                }}
-                                variant="outlined"
-                            >
-                                <InputLabel id="priority-label">Priority</InputLabel>
-                                <Select
-                                    labelId="priority-label"
-                                    label="Priority"
-                                    id="filter-priority"
-                                    size="small"
-                                    {...formik.getFieldProps("priority")}
-                                >
-                                    {priorityOptionsDataForFilter.map((p) => {
-                                        return (
-                                            <MenuItem value={p.value} key={p.value}>
-                                                <Box
-                                                    sx={{
-                                                        display: "flex",
-                                                        alignItems: "center",
-                                                    }}
-                                                >
-                                                    <Box
-                                                        sx={{
-                                                            ml: priorityOptionsData[p.value] ? 1 : 0,
-                                                        }}
-                                                    >
-                                                        {p.label}
-                                                    </Box>
-                                                </Box>
                                             </MenuItem>
                                         );
                                     })}

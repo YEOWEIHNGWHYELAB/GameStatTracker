@@ -35,6 +35,7 @@ export default function ThemeModeProvider({ children }) {
                     if (prevMode === "light") {
                         return "dark"
                     }
+                    
                     return "light"
                 })
             }
@@ -46,8 +47,8 @@ export default function ThemeModeProvider({ children }) {
     }, [mode])
 
     return (
-        <ThemeModeContext.Provider value={themeMode}>
-            <ThemeProvider theme={theme}>
+        <ThemeModeContext.Provider value={themeMode} >
+            <ThemeProvider theme={theme} >
                 {children}
             </ThemeProvider>
         </ThemeModeContext.Provider>

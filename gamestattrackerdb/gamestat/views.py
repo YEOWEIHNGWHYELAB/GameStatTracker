@@ -38,21 +38,23 @@ class GameStatViewSet(viewsets.ModelViewSet):
     serializer_class = GameStatSerializer
     pagination_class = StandardResultSetPagination
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['game', 'game_type']
+    search_fields = ['game_type', 'description']
     ordering_fields = ['-created_at', '-end_time', 'start_time']
     ordering = ['-created_at', '-end_time', '-start_time']
 
     def get_queryset(self):
         user = self.request.user
-        game = self.request.query_params.get('game')
-        game_type = self.request.query_params.get('game_type')
+
+        game = self.request.query_params.get('id')
+        win = self.request.query_params.get('win')
+
         query_params = {}
 
         if game is not None:
             query_params["game"] = game
 
-        if game_type is not None:
-            query_params["game_type"] = game_type
+        if win is not None:
+            query_params["win"] = win
 
         # Only return Game Stat that is created by user not others
         return GameStat.objects.filter(created_by=user, **query_params)

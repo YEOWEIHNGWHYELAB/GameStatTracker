@@ -8,9 +8,9 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import CategoryIcon from "@mui/icons-material/Category";
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ListAltIcon from "@mui/icons-material/ListAlt"
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 
 import { NavLink } from "react-router-dom";
 
@@ -30,13 +30,13 @@ const listItems = [
         key: "game",
         to: "/game",
         name: "Games",
-        icon: <ListAltIcon />
+        icon: <SportsEsportsIcon />
     },
     {
         key: "gamestat",
         to: "/gamestat",
         name: "Game Statistics",
-        icon: <CategoryIcon />,
+        icon: <AnalyticsIcon />,
     }
 ];
 

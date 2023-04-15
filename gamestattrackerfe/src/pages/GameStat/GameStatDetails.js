@@ -16,7 +16,8 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 import useRequestResource from "src/hooks/useRequestResource";
-import DateTimePicker from 'react-datetime-picker';
+import "./datetime.css";
+import DateTime from 'react-datetime';
 
 const validationSchema = yup.object({
     game: yup.string().required("Game is required"),
@@ -28,6 +29,7 @@ export default function GameStatDetails() {
     const { getResourceList, resourceList: gameList } = useRequestResource({
         endpoint: "game"
     })
+
     const { addResource, updateResource, getResource, resource } = useRequestResource({ 
         endpoint: "gamestat", 
         resourceLabel: "Game Statistics" 
@@ -173,7 +175,7 @@ export default function GameStatDetails() {
                                         Start Date Time: 
                                     </label>
 
-                                    <DateTimePicker 
+                                    <DateTime
                                         onChange={starttime_onChange}
                                         value={start_time}
                                     />
@@ -183,8 +185,8 @@ export default function GameStatDetails() {
                                     <label>
                                         End Date Time: 
                                     </label>
-
-                                    <DateTimePicker 
+                                    
+                                    <DateTime
                                         onChange={endtime_onChange}
                                         value={end_time}
                                     />
