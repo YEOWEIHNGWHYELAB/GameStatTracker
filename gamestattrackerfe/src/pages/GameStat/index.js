@@ -56,10 +56,10 @@ export default function GameStat() {
     }
 
     const onSubmitSearch = (values) => {
-        const { win, id, search, } = values;
-        
+        const { win, id, search } = values;
+
         const newQuery = {
-            win: win === "True" || win === "False" ? win : undefined,
+            win: (win === "True" || win === "False") ? win : undefined,
             id: id === "all" ? undefined : id,
             search: search
         }
