@@ -56,11 +56,11 @@ export default function GameStat() {
     }
 
     const onSubmitSearch = (values) => {
-        const { completed, priority, search, category } = values;
+        const { win, id, search, } = values;
+        
         const newQuery = {
-            completed: completed === "True" || completed === "False" ? completed : undefined,
-            priority: priority === "all" ? undefined : priority,
-            category: category === "all" ? undefined : category,
+            win: win === "True" || win === "False" ? win : undefined,
+            id: id === "all" ? undefined : id,
             search: search
         }
 

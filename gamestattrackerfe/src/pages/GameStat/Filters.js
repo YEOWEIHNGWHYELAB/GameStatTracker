@@ -21,11 +21,11 @@ const winorloseFilters = [
     },
     {
         label: "Lose",
-        value: false
+        value: "False"
     },
     {
         label: "Win",
-        value: true
+        value: "True"
     },
 ];
 
@@ -39,7 +39,6 @@ export default function Filters({ onSubmit }) {
     const { getResourceList, resourceList } = useRequestResource({ endpoint: "game" });
 
     const handleSubmit = (values) => {
-        console.log(values);
         onSubmit(values);
     };
 
