@@ -86,7 +86,7 @@ export function CardContentDistributionChart({
                                 <Table>
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>Category</TableCell>
+                                            <TableCell>Games</TableCell>
                                             <TableCell align="right">Count</TableCell>
                                         </TableRow>
                                     </TableHead>

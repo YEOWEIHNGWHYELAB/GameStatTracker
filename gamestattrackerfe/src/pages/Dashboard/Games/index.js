@@ -20,15 +20,17 @@ const generateChartData = (data = []) => {
                 borderWidth: 1
             }
         ]
-    }
+    };
+
     data.forEach((d => {
         chartData.labels.push(d.name);
         chartData.datasets[0].data.push(d.count);
         chartData.datasets[0].backgroundColor.push(`#${d.color}`);
         chartData.datasets[0].borderColor.push(`#${d.color}`);
-    }))
+    }));
+
     return chartData;
-}
+};
 
 const generateTableData = (data = []) => {
     const dataForTable = data.map((d) => {
@@ -36,17 +38,18 @@ const generateTableData = (data = []) => {
             label: d.name,
             color: `#${d.color}`,
             count: d.count
-        }
-    })
+        };
+    });
+    
     return dataForTable;
-}
+};
 
-const baseApiUrl = "/api/dashboard/tasks-category-distribution/"
+const baseApiUrl = "/gamebygame/";
 
 export default function TaskByCategory() {
     const { enqueueSnackbar } = useSnackbar();
     const [queries, setQueries] = useState({
-        completed: "False"
+        win: "False"
     });
     const [apiUrl, setApiUrl] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -54,10 +57,11 @@ export default function TaskByCategory() {
     const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
-        if (queries.completed === "True" || queries.completed === "False") {
-            setApiUrl(`${baseApiUrl}?completed=${queries.completed}`)
+        if (queries.win === "True" || queries.win === "False") {
+            setApiUrl(`${baseApiUrl}?completed=${queries.win}`);
             return;
-        }
+        };
+
         setApiUrl(baseApiUrl);
     }, [queries]);
 
@@ -65,12 +69,15 @@ export default function TaskByCategory() {
         if (!apiUrl) {
             return;
         }
+
         setIsLoading(true);
+
         axios.get(apiUrl, getCommonOptions())
             .then((res) => {
                 const { data } = res;
 
-                // Check if data exist
+                console.log(data);
+
                 if (data) {
                     setTableData(generateTableData(data));
                     setChartData(generateChartData(data));
@@ -84,6 +91,11 @@ export default function TaskByCategory() {
     }, [enqueueSnackbar, setIsLoading, setTableData, setChartData, apiUrl])
 
     return (
-        <StatChart tableData={tableData} chartData={chartData} isLoading={isLoading} filters={<Filters setQueries={setQueries} />} />
+        <StatChart 
+            tableData={tableData} 
+            chartData={chartData} 
+            isLoading={isLoading} 
+            filters={<Filters setQueries={setQueries} />} 
+        />
     )
 }

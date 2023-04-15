@@ -10,18 +10,18 @@ import {
 import { Formik } from "formik";
 import PropTypes from "prop-types";
 
-const completionFilters = [
+const winLoseFilters = [
     {
         label: "All",
-        value: "all",
+        value: "all"
     },
     {
-        label: "Pending",
-        value: "False",
+        label: "Lose",
+        value: "False"
     },
     {
-        label: "Completed",
-        value: "True",
+        label: "Win",
+        value: "True"
     },
 ];
 
@@ -58,7 +58,7 @@ export default function Filters({ setQueries }) {
                                     }}
                                     variant="outlined"
                                 >
-                                    <InputLabel id="category-label">Status</InputLabel>
+                                    <InputLabel id="category-label">Win OR Lose</InputLabel>
                                     <Select
                                         labelId="completed-label"
                                         label="Status"
@@ -66,7 +66,7 @@ export default function Filters({ setQueries }) {
                                         size="small"
                                         {...formik.getFieldProps("completed")}
                                     >
-                                        {completionFilters.map((c) => {
+                                        {winLoseFilters.map((c) => {
                                             return (
                                                 <MenuItem value={c.value} key={c.value}>
                                                     <div style={{ display: "flex" }}>{c.label}</div>

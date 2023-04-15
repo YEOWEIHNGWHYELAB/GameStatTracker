@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions, filters
 from rest_framework.response import Response
 from .serializers import GamesSerializer, GameStatSerializer, DashboardGameWinLoseSerializer, \
-    DashboardTaskByCategorySerializer
+    DashboardGameByGameSerializer
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Count
 from django.db.models.query_utils import Q
@@ -103,10 +103,14 @@ class DashboardTaskByCategoryViewSet(viewsets.ViewSet):
     # Indicates the number of objects inside a particular category
     def list(self, request):
         user = self.request.user
-        tasks_filter = {}
-        completed = self.request.query_params.get('completed')
-        if completed is not None:
-            tasks_filter['tasks__completed'] = completed
-        queryset = Games.objects.filter(created_by=user).annotate(count=Count('tasks', filter=Q(**tasks_filter)))
-        serializer = DashboardTaskByCategorySerializer(queryset, many=True)
+
+        game_stat = {}
+        game = self.request.query_params.get('game')
+        if game is not None:
+            game_stat['gamestat__game'] = game
+
+        queryset = GameStat.objects.filter(created_by=user)
+
+        serializer = DashboardGameByGameSerializer(queryset, many=True)
+
         return Response(serializer.data)
