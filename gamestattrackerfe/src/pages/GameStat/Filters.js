@@ -15,7 +15,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import useRequestResource from "src/hooks/useRequestResource";
 import DateTime from 'react-datetime';
-import { MarginOutlined } from "@mui/icons-material";
 
 const winorloseFilters = [
     {
@@ -69,8 +68,6 @@ export default function Filters({ onSubmit }) {
             }
         }))
     }, [resourceList.results]);
-
-    const [isOpen, setIsOpen] = useState(false);
 
     const theme = useTheme();
     const isBelowMedium = useMediaQuery(theme.breakpoints.down("sm"));
@@ -181,7 +178,6 @@ export default function Filters({ onSubmit }) {
                                 <DateTime
                                     onChange={starttime_onChange}
                                     value={start_time}
-
                                 />
                                 <br/>
                             </Grid>
@@ -197,7 +193,6 @@ export default function Filters({ onSubmit }) {
                                 <DateTime
                                     onChange={endtime_onChange}
                                     value={end_time}
-                                    
                                 />
                                 <br/>
                             </Grid>
