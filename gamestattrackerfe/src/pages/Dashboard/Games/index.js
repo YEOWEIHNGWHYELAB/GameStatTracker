@@ -40,7 +40,7 @@ const generateTableData = (data = []) => {
             count: d.count
         };
     });
-    
+
     return dataForTable;
 };
 
@@ -76,12 +76,11 @@ export default function TaskByCategory() {
             .then((res) => {
                 const { data } = res;
 
-                console.log(data);
-
                 if (data) {
                     setTableData(generateTableData(data));
                     setChartData(generateChartData(data));
                 }
+                
                 setIsLoading(false);
             }).catch((err) => {
                 setIsLoading(false);

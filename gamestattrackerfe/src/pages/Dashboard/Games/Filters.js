@@ -26,7 +26,7 @@ const winLoseFilters = [
 ];
 
 const initialValues = {
-    completed: "False",
+    winLose: "False",
 };
 
 export default function Filters({ setQueries }) {
@@ -60,11 +60,11 @@ export default function Filters({ setQueries }) {
                                 >
                                     <InputLabel id="category-label">Win OR Lose</InputLabel>
                                     <Select
-                                        labelId="completed-label"
+                                        labelId="winLose-label"
                                         label="Status"
-                                        id="filter-completed"
+                                        id="filter-winLose"
                                         size="small"
-                                        {...formik.getFieldProps("completed")}
+                                        {...formik.getFieldProps("winLose")}
                                     >
                                         {winLoseFilters.map((c) => {
                                             return (

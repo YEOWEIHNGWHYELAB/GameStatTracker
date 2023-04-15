@@ -37,19 +37,14 @@ const loadingBox = () => {
     );
 };
 
-export function CardContentDistributionChart({
-    chartData,
-    tableData,
-    isLoading,
-    filters
-}) {
+export function CardContentDistributionChart({chartData, tableData, isLoading, filters}) {
     const theme = useTheme();
     const textColor = theme.palette.mode === "dark" ? "#fff" : ChartJS.defaults.color;
 
     return (
         <Card elevation={4} sx={{ mb: (theme) => theme.spacing(2) }}>
             <CardHeader
-                title={"Tasks Distribution by Category"}
+                title={"Game Distribution by Game"}
                 titleTypographyProps={{
                     variant: "h6",
                 }}
@@ -90,15 +85,19 @@ export function CardContentDistributionChart({
                                             <TableCell align="right">Count</TableCell>
                                         </TableRow>
                                     </TableHead>
+                                    
                                     <TableBody>
                                         {tableData.map((row) => (
-                                            <TableRow key={row.label}>
+                                            <TableRow key={row.game_name}>
                                                 <TableCell component="th" scope="row">
                                                     <Box sx={{ display: "flex", alignItems: "center" }}>
-                                                        <Box sx={{ ml: 1 }}>{row.label}</Box>
+                                                        <Box sx={{ ml: 1 }}>{row.game_name}</Box>
                                                     </Box>
                                                 </TableCell>
-                                                <TableCell align="right">{row.count}</TableCell>
+
+                                                <TableCell align="right">
+                                                    {row.count}
+                                                </TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
