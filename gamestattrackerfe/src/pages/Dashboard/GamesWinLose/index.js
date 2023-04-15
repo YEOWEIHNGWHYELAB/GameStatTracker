@@ -15,7 +15,7 @@ import StatCard from "./StatCard";
 export default function GamesWinLose() {
     const [isLoading, setIsLoading] = useState(false);
 
-    const [gameswinlose, setCompletionStats] = useState({
+    const [gameswinlose, setWinLoseStats] = useState({
         win: null,
         lose: null
     });
@@ -40,7 +40,7 @@ export default function GamesWinLose() {
                             stats.lose = d.count
                         }
                     })
-                    setCompletionStats(stats);
+                    setWinLoseStats(stats);
                     setIsLoading(false);
                 }
             }).catch((err) => {
@@ -48,7 +48,7 @@ export default function GamesWinLose() {
                 enqueueSnackbar(formattedError);
                 setIsLoading(false);
             })
-    }, [enqueueSnackbar, setIsLoading])
+    }, [enqueueSnackbar, setIsLoading]);
 
     const totalGamesPlayed = (gameswinlose.win || 0) + (gameswinlose.lose || 0);
 
