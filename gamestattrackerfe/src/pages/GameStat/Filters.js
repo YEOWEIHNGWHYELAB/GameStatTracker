@@ -96,13 +96,14 @@ export default function Filters({ onSubmit }) {
 
                             <FormControl
                                 sx={{
-                                    width: isBelowMedium ? "100%" : 160,
                                     marginRight: (theme) => theme.spacing(1),
                                     marginBottom: (theme) => theme.spacing(2),
                                 }}
+                                style={{ width: 'auto' }} // set the width to auto
                                 variant="outlined"
                             >
                                 <InputLabel id="games-label">Games</InputLabel>
+
                                 <Select
                                     labelId="games-label"
                                     label="Games"
