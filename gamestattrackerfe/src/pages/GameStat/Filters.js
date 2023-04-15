@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
     FormControl,
     Box,
     InputLabel,
+    Grid,
     Select,
     MenuItem,
     Button,
@@ -13,6 +14,8 @@ import PropTypes from "prop-types";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import useRequestResource from "src/hooks/useRequestResource";
+import DateTime from 'react-datetime';
+import { MarginOutlined } from "@mui/icons-material";
 
 const winorloseFilters = [
     {
@@ -32,14 +35,23 @@ const winorloseFilters = [
 const initialValues = {
     win: "all",
     id: "all",
-    search: "",
+    search: ""
 };
 
 export default function Filters({ onSubmit }) {
     const { getResourceList, resourceList } = useRequestResource({ endpoint: "game" });
 
+    const [start_time, starttime_onChange] = useState(null);
+    const [end_time, endtime_onChange] = useState(null);
+
     const handleSubmit = (values) => {
-        onSubmit(values);
+        const timedValue = {
+            ...values,
+            start_time,
+            end_time
+        }
+
+        onSubmit(timedValue);
     };
 
     useEffect(() => {
@@ -56,7 +68,9 @@ export default function Filters({ onSubmit }) {
                 label: r.name
             }
         }))
-    }, [resourceList.results])
+    }, [resourceList.results]);
+
+    const [isOpen, setIsOpen] = useState(false);
 
     const theme = useTheme();
     const isBelowMedium = useMediaQuery(theme.breakpoints.down("sm"));
@@ -78,6 +92,7 @@ export default function Filters({ onSubmit }) {
                             }}
                         >
                             <FormControl
+                                style={{ width: '100%' }}
                                 sx={{
                                     width: isBelowMedium ? "100%" : 160,
                                     marginRight: (theme) => theme.spacing(1),
@@ -88,7 +103,7 @@ export default function Filters({ onSubmit }) {
                                 <TextField
                                     size="small"
                                     id="title"
-                                    label="Title"
+                                    label="Search by Description & Game Type"
                                     type="search"
                                     {...formik.getFieldProps("search")}
                                 />
@@ -140,7 +155,7 @@ export default function Filters({ onSubmit }) {
                                 <InputLabel id="winorlose-label">Win OR Lose</InputLabel>
                                 <Select
                                     labelId="winorlose-label"
-                                    label="WinOrLose"
+                                    label="Win Or Lose"
                                     id="filter-winorlose"
                                     size="small"
                                     {...formik.getFieldProps("win")}
@@ -154,6 +169,38 @@ export default function Filters({ onSubmit }) {
                                     })}
                                 </Select>
                             </FormControl>
+
+                            <Grid item xs={10}
+                                sx={{
+                                    padding: (theme) => theme.spacing(1)
+                                }}
+                            >
+                                <label>
+                                    Start Date Time: 
+                                </label>
+                                <DateTime
+                                    onChange={starttime_onChange}
+                                    value={start_time}
+
+                                />
+                                <br/>
+                            </Grid>
+
+                            <Grid item xs={10}
+                                sx={{
+                                    padding: (theme) => theme.spacing(1)
+                                }}
+                            >
+                                <label>
+                                    End Date Time: 
+                                </label>
+                                <DateTime
+                                    onChange={endtime_onChange}
+                                    value={end_time}
+                                    
+                                />
+                                <br/>
+                            </Grid>
 
                             <Box sx={{ marginBottom: (theme) => theme.spacing(2) }}>
                                 <Button

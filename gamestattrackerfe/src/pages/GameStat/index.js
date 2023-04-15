@@ -56,13 +56,18 @@ export default function GameStat() {
     }
 
     const onSubmitSearch = (values) => {
-        const { win, id, search } = values;
+        console.log(values)
+        const { win, id, search, start_time, end_time } = values;
 
         const newQuery = {
             win: (win === "True" || win === "False") ? win : undefined,
             id: id === "all" ? undefined : id,
+            start_time: (start_time === '' || start_time === null) ? undefined : start_time.format('YYYY-MM-DD HH:mm:ss.SSSZ'),
+            end_time: (end_time === '' || end_time === null) ? undefined : end_time.format('YYYY-MM-DD HH:mm:ss.SSSZ'),
             search: search
-        }
+        };
+
+        // console.log(newQuery);
 
         const newSearch = queryString.stringify(newQuery);
         navigate(`${location.pathname}?${newSearch}`);

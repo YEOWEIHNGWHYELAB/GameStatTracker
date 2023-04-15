@@ -7,6 +7,7 @@ from django.db.models import Count
 from django.db.models.query_utils import Q
 from .models import Games, GameStat
 from .permissions import GameStatPermission
+from datetime import datetime
 
 
 class StandardResultSetPagination(PageNumberPagination):
@@ -48,6 +49,9 @@ class GameStatViewSet(viewsets.ModelViewSet):
         game = self.request.query_params.get('id')
         win = self.request.query_params.get('win')
 
+        start_time = self.request.query_params.get('start_time')
+        end_time = self.request.query_params.get('end_time')
+
         query_params = {}
 
         if game is not None:
@@ -56,8 +60,21 @@ class GameStatViewSet(viewsets.ModelViewSet):
         if win is not None:
             query_params["win"] = win
 
+        if start_time is not None and end_time is not None:
+            # Both start_time and end_time are not null
+            time_range_filter = {'start_time__range': [start_time, end_time], 'end_time__range': [start_time, end_time]}
+        elif start_time is not None:
+            # Only start_time is not null
+            time_range_filter = {'start_time__gte': start_time}
+        elif end_time is not None:
+            # Only end_time is not null
+            time_range_filter = {'end_time__lte': end_time}
+        else:
+            # Both start_time and end_time are null, no need to filter by time_range
+            time_range_filter = {}
+
         # Only return Game Stat that is created by user not others
-        return GameStat.objects.filter(created_by=user, **query_params)
+        return GameStat.objects.filter(created_by=user, **query_params, **time_range_filter)
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)

@@ -15,7 +15,7 @@
   z-index: 99999 !important;
   background: #840000;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #f9f9f9;
+  border: 1px solid #ffee00;
 }
 
 .rdtOpen .rdtPicker {
@@ -48,7 +48,7 @@
 .rdtPicker td.rdtMinute:hover,
 .rdtPicker td.rdtSecond:hover,
 .rdtPicker .rdtTimeToggle:hover {
-  background: #eeeeee;
+  background: #0400ff;
   cursor: pointer;
 }
 .rdtPicker td.rdtOld,
