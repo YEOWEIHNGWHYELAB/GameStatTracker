@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import useRequestResource from 'src/hooks/useRequestResource';
 
-export default function Categories() {
+export default function Games() {
     const { getResourceList, resourceList, deleteResource } = useRequestResource({ endpoint: "game", resourceLabel: "Games" });
     const [open, setOpen] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null);
@@ -29,79 +29,79 @@ export default function Categories() {
         deleteResource(idToDelete);
     }
  
-  return (
-    <div>
-        <Dialog open={open} onClose = {handleDeleteClose}>
-            <DialogTitle>
-                Are you sure you want to delete this??
-            </DialogTitle>
-            <DialogActions>
-                <Button onClick = {handleDelete}>
-                    YES, there is no turning back!
+    return (
+        <div>
+            <Dialog open={open} onClose = {handleDeleteClose}>
+                <DialogTitle>
+                    Are you sure you want to delete this??
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick = {handleDelete}>
+                        YES, there is no turning back!
+                    </Button>
+                    <Button onClick = {handleDeleteClose}>
+                        NO, I want my Mommy
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Box sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                mb: 4 // Margin bottom
+            }}>
+                <Button component = {Link} variant = "contained" color = "primary" to="/game/create">
+                    Add a New Game
                 </Button>
-                <Button onClick = {handleDeleteClose}>
-                    NO, I want my Mommy
-                </Button>
-            </DialogActions>
-        </Dialog>
 
-        <Box sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            mb: 4 // Margin bottom
-        }}>
-            <Button component = {Link} variant = "contained" color = "primary" to="/game/create">
-                Add a New Game
-            </Button>
+            </Box>
 
-        </Box>
+            <h1>
+                Games You Play
+            </h1>
+            
+            <TableContainer component = {Paper}>
+                <Table sx={{ minWidth: 360 }} size = "small">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align = "left">
+                                Games
+                            </TableCell>
 
-        <h1>
-        Games You Play
-        </h1>
-        
-        <TableContainer component = {Paper}>
-            <Table sx={{ minWidth: 360 }} size = "small">
-                <TableHead>
-                    <TableRow>
-                        <TableCell align = "left">
-                            Games
-                        </TableCell>
+                            <TableCell align = "right">
+                                Actions
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            resourceList.results.map((r) => {
+                                return <TableRow key={r.id}>
+                                    <TableCell align="left">
+                                        {r.name}
+                                    </TableCell>
 
-                        <TableCell align = "right">
-                            Actions
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {
-                        resourceList.results.map((r) => {
-                            return <TableRow key={r.id}>
-                                <TableCell align="left">
-                                    {r.name}
-                                </TableCell>
+                                    <TableCell align="right">
+                                        <Box sx = {{ display: "flex", justifyContent: "flex-end" }}>
+                                            <Link to = {`/game/edit/${r.id}`} key = "game-edit">
+                                                <IconButton size="large">
+                                                    <EditIcon />
+                                                </IconButton>
+                                            </Link>
 
-                                <TableCell align="right">
-                                    <Box sx = {{ display: "flex", justifyContent: "flex-end" }}>
-                                        <Link to = {`/game/edit/${r.id}`} key = "game-edit">
-                                            <IconButton size="large">
-                                                <EditIcon />
+                                            <IconButton size="large" onClick = {() => {
+                                                handleConfirmDelete(r.id)
+                                            }}>
+                                                    <DeleteIcon />
                                             </IconButton>
-                                        </Link>
-
-                                        <IconButton size="large" onClick = {() => {
-                                            handleConfirmDelete(r.id)
-                                        }}>
-                                                <DeleteIcon />
-                                        </IconButton>
-                                    </Box>
-                                </TableCell>
-                            </TableRow>
-                        })
-                    }
-                </TableBody>
-            </Table>
-        </TableContainer>
-    </div>
-  )
+                                        </Box>
+                                    </TableCell>
+                                </TableRow>
+                            })
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </div>
+    )
 }

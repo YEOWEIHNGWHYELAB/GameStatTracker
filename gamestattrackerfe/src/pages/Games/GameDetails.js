@@ -11,7 +11,7 @@ const validationSchema = yup.object({
     name: yup.string().required("New Game is Required!").max(100, "Max Length is 100!"),
 })
 
-export default function CategoryDetails() {
+export default function GamesDetails() {
     const { addResource , resource, getResource, updateResource } = useRequestResource({ endpoint: "game", resourceLabel:"Games" });
     const [ initialValues, setInitialValues ] = useState({
         name: ""

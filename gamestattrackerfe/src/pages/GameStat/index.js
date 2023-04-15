@@ -56,7 +56,6 @@ export default function GameStat() {
     }
 
     const onSubmitSearch = (values) => {
-        console.log(values)
         const { win, id, search, start_time, end_time } = values;
 
         const newQuery = {
