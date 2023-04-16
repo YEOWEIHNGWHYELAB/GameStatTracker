@@ -6,20 +6,20 @@ This app is mainly used for viewing the Game Statistics that you have and perfor
 
 ### Login Page
 
-![image](https://drive.google.com/file/d/1bV1-hZbT8iPLdORL7fZVI67KkcEMY4_s/view?usp=sharing)
+![image](https://drive.google.com/uc?export=view&id=1bV1-hZbT8iPLdORL7fZVI67KkcEMY4_s)
 
 ### Dashboard Page
 
-![image](https://drive.google.com/file/d/1m0-SDn9eoR3XfUcrQFKFNhGQnuFDpuTO/view?usp=sharing)
+![image](https://drive.google.com/uc?export=view&id=1m0-SDn9eoR3XfUcrQFKFNhGQnuFDpuTO)
 
 ### Game Page
 
-![image](https://drive.google.com/file/d/1XUGMjK7KcbJHoCX42Q2dAtlcZxWBXPEv/view?usp=sharing)
+![image](https://drive.google.com/uc?export=view&id=1XUGMjK7KcbJHoCX42Q2dAtlcZxWBXPEv)
 
 ### Game Statistics Page
 
-![image](https://drive.google.com/file/d/1aJAUQ2FdMnZ6rZhkFt8CJFk9T2_KqR7N/view?usp=sharing)
+![image](https://drive.google.com/uc?export=view&id=1aJAUQ2FdMnZ6rZhkFt8CJFk9T2_KqR7N)
 
 ### Game Statistics Edit Page
 
-![image](https://drive.google.com/file/d/1SVhaAKscEyxoZDLSzxOX62z7dEB41W0m/view?usp=sharing)
+![image](https://drive.google.com/uc?export=view&id=1SVhaAKscEyxoZDLSzxOX62z7dEB41W0m)
