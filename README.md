@@ -10,7 +10,7 @@ This app is mainly used for viewing the Game Statistics that you have and perfor
 
 ### Dashboard Page
 
-![image](https://drive.google.com/uc?export=view&id=1m0-SDn9eoR3XfUcrQFKFNhGQnuFDpuTO)
+![image](https://drive.google.com/uc?export=view&id=16Mt_5EI9FO33_EcrXtwFnJC3SO6HZjoK)
 
 ### Game Page
 
