@@ -10,7 +10,7 @@ import {
 import { Formik } from "formik";
 import PropTypes from "prop-types";
 
-const winLoseFilters = [
+const winFilters = [
     {
         label: "All",
         value: "all"
@@ -26,7 +26,7 @@ const winLoseFilters = [
 ];
 
 const initialValues = {
-    winLose: "False",
+    win: "all",
 };
 
 export default function Filters({ setQueries }) {
@@ -54,19 +54,22 @@ export default function Filters({ setQueries }) {
                                 <FormControl
                                     sx={{
                                         minWidth: 200,
-                                        marginRight: (theme) => theme.spacing(1),
+                                        marginRight: (theme) => theme.spacing(2),
                                     }}
                                     variant="outlined"
                                 >
-                                    <InputLabel id="category-label">Win OR Lose</InputLabel>
+                                    <InputLabel id="filter-label">
+                                        Win OR Lose
+                                    </InputLabel>
+                                    
                                     <Select
-                                        labelId="winLose-label"
-                                        label="Status"
-                                        id="filter-winLose"
+                                        labelId="win-label"
+                                        label="Win OR Lose"
+                                        id="filter-win"
                                         size="small"
-                                        {...formik.getFieldProps("winLose")}
+                                        {...formik.getFieldProps("win")}
                                     >
-                                        {winLoseFilters.map((c) => {
+                                        {winFilters.map((c) => {
                                             return (
                                                 <MenuItem value={c.value} key={c.value}>
                                                     <div style={{ display: "flex" }}>{c.label}</div>

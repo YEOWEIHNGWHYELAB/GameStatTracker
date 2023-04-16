@@ -7,6 +7,28 @@ import formatHttpApiError from 'src/helpers/formatHttpApiError';
 import StatChart from "./StatChart";
 import Filters from "./Filters";
 
+// Generate a random hexadecimal color code
+function randomColor() {
+    const hexDigits = '0123456789ABCDEF';
+    let color = '#';
+
+    for (let i = 0; i < 6; i++) {
+        color += hexDigits[Math.floor(Math.random() * 16)];
+    }
+
+    return color;
+}
+
+// Create a new array with updated color values
+function assignColors(tableData) {
+    const updatedTableData = tableData.map(item => ({
+        ...item,
+        color: randomColor()
+    }));
+
+    return updatedTableData;
+}
+
 // Create charData that can be used in the chart using response gotten from API
 // data = [] represents the response obtained
 const generateChartData = (data = []) => {
@@ -25,8 +47,8 @@ const generateChartData = (data = []) => {
     data.forEach((d => {
         chartData.labels.push(d.name);
         chartData.datasets[0].data.push(d.count);
-        chartData.datasets[0].backgroundColor.push(`#${d.color}`);
-        chartData.datasets[0].borderColor.push(`#${d.color}`);
+        chartData.datasets[0].backgroundColor.push(d.color);
+        chartData.datasets[0].borderColor.push(d.color);
     }));
 
     return chartData;
@@ -36,7 +58,7 @@ const generateTableData = (data = []) => {
     const dataForTable = data.map((d) => {
         return {
             label: d.name,
-            color: `#${d.color}`,
+            color: d.color,
             count: d.count
         };
     });
@@ -48,9 +70,11 @@ const baseApiUrl = "/gamebygame/";
 
 export default function TaskByCategory() {
     const { enqueueSnackbar } = useSnackbar();
+
     const [queries, setQueries] = useState({
-        win: "False"
+        win: "all"
     });
+
     const [apiUrl, setApiUrl] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [chartData, setChartData] = useState(null);
@@ -58,7 +82,7 @@ export default function TaskByCategory() {
 
     useEffect(() => {
         if (queries.win === "True" || queries.win === "False") {
-            setApiUrl(`${baseApiUrl}?completed=${queries.win}`);
+            setApiUrl(`${baseApiUrl}?win=${queries.win}`);
             return;
         };
 
@@ -77,8 +101,9 @@ export default function TaskByCategory() {
                 const { data } = res;
 
                 if (data) {
-                    setTableData(generateTableData(data));
-                    setChartData(generateChartData(data));
+                    const updatedData = assignColors(data);
+                    setTableData(generateTableData(updatedData));
+                    setChartData(generateChartData(updatedData));
                 }
                 
                 setIsLoading(false);

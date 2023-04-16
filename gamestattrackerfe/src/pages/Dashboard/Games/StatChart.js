@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import ColorBox from "./ColorBox";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -36,6 +37,28 @@ const loadingBox = () => {
         </Box>
     );
 };
+
+// Generate a random hexadecimal color code
+function randomColor() {
+    const hexDigits = '0123456789ABCDEF';
+    let color = '#';
+
+    for (let i = 0; i < 6; i++) {
+        color += hexDigits[Math.floor(Math.random() * 16)];
+    }
+
+    return color;
+}
+
+// Create a new array with updated color values
+function assignColors(tableData) {
+    const updatedTableData = tableData.map(item => ({
+        ...item,
+        color: randomColor()
+    }));
+
+    return updatedTableData;
+}
 
 export function CardContentDistributionChart({chartData, tableData, isLoading, filters}) {
     const theme = useTheme();
@@ -87,19 +110,22 @@ export function CardContentDistributionChart({chartData, tableData, isLoading, f
                                     </TableHead>
                                     
                                     <TableBody>
-                                        {tableData.map((row) => (
-                                            <TableRow key={row.game_name}>
-                                                <TableCell component="th" scope="row">
-                                                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                                                        <Box sx={{ ml: 1 }}>{row.game_name}</Box>
-                                                    </Box>
-                                                </TableCell>
+                                        {tableData.map(
+                                            (row) => (
+                                                <TableRow key={row.label}>
+                                                    <TableCell component="th" scope="row">
+                                                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                                                            <ColorBox color={row.color} />
+                                                            <Box sx={{ ml: 1 }}>{row.label}</Box>
+                                                        </Box>
+                                                    </TableCell>
 
-                                                <TableCell align="right">
-                                                    {row.count}
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
+                                                    <TableCell align="right">
+                                                        {row.count}
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))
+                                        }
                                     </TableBody>
                                 </Table>
                             </TableContainer>
