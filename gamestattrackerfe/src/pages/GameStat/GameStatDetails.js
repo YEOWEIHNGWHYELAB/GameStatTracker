@@ -48,6 +48,8 @@ export default function GameStatDetails() {
     const [start_time, starttime_onChange] = useState(null);
     const [end_time, endtime_onChange] = useState(null);
 
+    const [error, setError] = useState(null);
+
     useEffect(() => {
         getResourceList();
     }, [getResourceList]);
@@ -83,6 +85,16 @@ export default function GameStatDetails() {
     const handleSubmit = values => {
         values["start_time"] = start_time;
         values["end_time"] = end_time;
+
+        if (!values.start_time || !values.end_time) {
+            alert("Please do not forget to select start time and end time!");
+            return;
+        }
+
+        if (values.start_time >= values.end_time) {
+            alert("Start time must be less than end time!");
+            return;
+        }
 
         if (id) {
             updateResource(id, values, () => {
