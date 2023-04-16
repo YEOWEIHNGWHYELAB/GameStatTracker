@@ -27,8 +27,8 @@ class DashboardGameWinLoseSerializer(serializers.ModelSerializer):
 
 
 class DashboardGameByGameSerializer(serializers.ModelSerializer):
-    game_name = serializers.CharField(read_only=True, source='game.name')
+    count = serializers.IntegerField()
 
     class Meta:
-        model = GameStat
-        fields = ('game_name', 'win')
+        model = Games
+        fields = ('name', 'count')

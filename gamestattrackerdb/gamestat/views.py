@@ -104,12 +104,15 @@ class DashboardTaskByCategoryViewSet(viewsets.ViewSet):
     def list(self, request):
         user = self.request.user
 
-        game_stat = {}
-        game = self.request.query_params.get('game')
-        if game is not None:
-            game_stat['gamestat__game'] = game
+        gameFilter = {}
+        win = self.request.query_params.get('win')
 
-        queryset = GameStat.objects.filter(created_by=user)
+        if win is not None:
+            gameFilter['gamestat__win'] = win
+
+        queryset = Games.objects \
+            .filter(created_by=user) \
+            .annotate(count=Count('gamestat', filter=Q(**gameFilter)))
 
         serializer = DashboardGameByGameSerializer(queryset, many=True)
 
