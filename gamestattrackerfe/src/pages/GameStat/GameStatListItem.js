@@ -91,11 +91,17 @@ export default function GameStatListItem({ gamestat, handleConfirmDelete, handle
             }
         />
 
-        <div>
-            <p>Start Time: {Moment(gamestat.start_time).format('MMMM Do YYYY, h:mm a')}</p>
-            <p>End Time: {Moment(gamestat.end_time).format('MMMM Do YYYY, h:mm a')}</p>
-            <h4>Description: </h4>
-            <h5>{gamestat.description}</h5>
+        <div style={{ padding: '2%' }}>
+            <p>
+                Start Time: {Moment(gamestat.start_time).format('Do MMMM YYYY, h:mm a')}
+                <br/>
+                End Time: {Moment(gamestat.end_time).format('Do MMMM YYYY, h:mm a')}
+            </p>
+            <h4>
+                Description: 
+                <br/>
+                {gamestat.description}
+            </h4>
         </div>
     </Card>;
 }

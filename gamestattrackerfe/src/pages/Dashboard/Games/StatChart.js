@@ -83,16 +83,17 @@ export function CardContentDistributionChart({chartData, tableData, isLoading, f
                             <CardContent sx={{ flex: "1 0 auto", height: "300px" }}>
                                 <div style={{ height: "220px", width: "220px" }}>
                                     {chartData ? (
-                                        <Doughnut height={250} width={250} data={chartData} options={{
-                                            cutout: "90%",
-                                            plugins: {
-                                                legend: {
-                                                    labels: {
-                                                        color: textColor
+                                        <Doughnut height={250} width={250} data={chartData} 
+                                            options={{
+                                                cutout: "90%",
+                                                plugins: {
+                                                    legend: {
+                                                        labels: {
+                                                            color: textColor
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        }}
+                                            }}
                                         />
                                     ) : null}
                                 </div>

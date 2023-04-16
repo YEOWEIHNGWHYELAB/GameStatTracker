@@ -22,18 +22,18 @@ import DateTime from 'react-datetime';
 const validationSchema = yup.object({
     game: yup.string().required("Game is required"),
     game_type: yup.string().required("Game type is required"),
-    description: yup.string().required("Title is required").max(100, "Max length is 100"),
+    description: yup.string().required("Description is required").max(100, "Max length is 100"),
 });
 
 export default function GameStatDetails() {
     const { getResourceList, resourceList: gameList } = useRequestResource({
         endpoint: "game"
-    })
+    });
 
     const { addResource, updateResource, getResource, resource } = useRequestResource({ 
         endpoint: "gamestat", 
         resourceLabel: "Game Statistics" 
-    })
+    });
 
     const navigate = useNavigate();
     const { id } = useParams();
