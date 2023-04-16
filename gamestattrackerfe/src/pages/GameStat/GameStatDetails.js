@@ -200,6 +200,8 @@ export default function GameStatDetails() {
                                         id="description"
                                         label="Description"
                                         {...formik.getFieldProps("description")}
+                                        error={formik.touched.description && Boolean(formik.errors.description)}
+                                        helperText={formik.touched.description && formik.errors.description}
                                     />
                                 </Grid>
 
